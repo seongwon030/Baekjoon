@@ -1,14 +1,19 @@
-n,m = map(int,input().split())
-a = set()
-b = set()
-for i in range(n+m):
-  k = input()
-  if i<n:
-    a.add(k)
-  else:
-    b.add(k)
+import sys
 
-t = sorted(a&b)
-print(len(t))
-for i in range(len(t)):
-  print(t[i])
+input = sys.stdin.readline
+
+n,m=map(int,input().split())
+s=set()
+k=[]
+for i in range(n):
+    s.add(input().rstrip())
+    
+for j in range(m):
+    a=input().rstrip()
+    if a in s:
+        k.append(a)
+
+k.sort()
+print(len(k))
+for x in k:
+    print(x)
