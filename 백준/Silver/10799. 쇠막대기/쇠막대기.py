@@ -1,17 +1,16 @@
 s = input()
 
-left = []
-right = []
+stack = []
 cnt = 0
 
 for i in range(len(s)):
   if s[i] == '(':
-    left.append('(')
+    stack.append('(')
   else: 
     if s[i-1] == ')':
-      left.pop()
+      stack.pop()
       cnt+=1
     else:
-      left.pop()
-      cnt += len(left)
+      stack.pop()
+      cnt += len(stack)
 print(cnt)
