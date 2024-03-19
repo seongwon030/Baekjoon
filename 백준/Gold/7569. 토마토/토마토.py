@@ -1,6 +1,9 @@
 ## 토마토
 
 from collections import deque
+import sys
+
+input = sys.stdin.readline
 
 m,n,h = map(int,input().split())
 tomato = []
