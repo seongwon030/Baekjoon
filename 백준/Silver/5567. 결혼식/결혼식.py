@@ -27,6 +27,6 @@ def bfs(start):
 bfs(0)
 re = 0
 for i in visited:
-  if i>1 and i<4:
+  if i==2 or i==3:
     re+=1
 print(re)
