@@ -1,3 +1,7 @@
+import sys
+
+input = sys.stdin.readline
+
 dp = [1,2,4,7]
 p = 4
 for i in range(int(input())):
