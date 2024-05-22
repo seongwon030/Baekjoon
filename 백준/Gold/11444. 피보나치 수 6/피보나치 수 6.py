@@ -28,8 +28,5 @@ M = [[1, 1],
 
 n = int(input())
 
-if n == 0:
-    print(0)
-else:
-    result = matrixpow(M, n-1, mod)
-    print(result[0][0])  # 피보나치 수를 구하는 경우 F(n)을 반환
+result = matrixpow(M, n-1, mod)
+print(result[0][0])  # 피보나치 수를 구하는 경우 F(n)을 반환
