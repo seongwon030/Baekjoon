@@ -1,33 +1,35 @@
+import collections
 import sys
+from heapq import heappop, heappush
+
 input = sys.stdin.readline
 
-n,m,t = map(int,input().split())
-root = [i for i in range(n+1)]
-edge = [] # 간선리스트
+N,M,T = map(int,input().split())
+graph = collections.defaultdict(list)
+answer = 0
+conquer_cost = 0
 
-for i in range(m):
-  edge.append(list(map(int,input().split())))
+for _ in range(M):
+    a,b,c = map(int,input().split())
+    graph[a].append((b,c))
+    graph[b].append((a,c))
 
-# 비용을 기준으로 오름차순
-edge.sort(key=lambda x:x[2])
+visited=[False for _ in range(N+1)]
+heap=[(0,1)]
 
-def find(x):
-  if x!=root[x]:
-    root[x] = find(root[x])
-  return root[x]
+while heap:
+    cost,node = heappop(heap) # 힙에서 최소비용 간선 꺼냄
 
-ans = 0
-for a,b,c in edge:
-  aRoot = find(a)
-  bRoot = find(b)
-  if aRoot != bRoot:
-    if aRoot > bRoot:
-      root[aRoot] = bRoot
-    else:
-      root[bRoot] = aRoot
-    ans += c
+    if not visited[node]: # 해당 노드 방문되지 않았다면 방문처리
+        visited[node]=True
+        answer += (cost + conquer_cost)  # answer에 현재 간선 비용과 T의 합을 더해줌
 
-    for j in range(m):
-      edge[j][2] += t
+        if node!=1: # 첫 번째 노드 아니면, 정복비용 T 증가 
+            conquer_cost += T
 
-print(ans)
+        for next_node,next_cost in graph[node]: # 다음 노드 탐색하여 힙에 넣기 
+            if not visited[next_node]:
+                heappush(heap,(next_cost,next_node))
+
+
+print(answer)
