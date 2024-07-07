@@ -1,4 +1,6 @@
 # 네트워크 연결 - 골드4
+import sys
+input = sys.stdin.readline
 
 n = int(input()) # 정점의 개수
 m = int(input()) # 간선의 개수
