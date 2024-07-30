@@ -1,25 +1,25 @@
-# 수정 후
-from collections import deque
+import sys
+input = sys.stdin.readline
 
 def bfs(original, x, y):
-    max_len = 1
-    q = set([(x, y, original[y][x])])  
+    ans = 1
+    q = set([(x, y, k[y][x])])  
     while q:
         x, y, alpha = q.pop()  
-        max_len = max(max_len, len(alpha))
+        ans = max(ans, len(alpha))
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0 <= nx < c and 0 <= ny < r and original[ny][nx] not in alpha:
+            if 0 <= nx < c and 0 <= ny < r and k[ny][nx] not in alpha:
                 q.add((nx, ny, alpha + original[ny][nx]))  
-    return max_len
+    return ans
 
 r, c = map(int, input().split())
-original = []
+k = []
 for _ in range(r):
-    original.append(list(input()))
+    k.append(list(input()))
 
 dx = [0, 0, -1, 1]
 dy = [-1, 1, 0, 0]
 
-print(bfs(original, 0, 0))
+print(bfs(k, 0, 0))
