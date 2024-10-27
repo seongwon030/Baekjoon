@@ -1,2 +1,3 @@
-# seongwon
-백준 문제 풀이
+
+### baekjoon
+[seongwon0903](https://www.acmicpc.net/user/seongwon0903)
