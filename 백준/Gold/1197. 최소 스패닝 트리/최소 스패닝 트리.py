@@ -1,5 +1,6 @@
-## 최소 스패닝트리 - 골드4
 import sys
+sys.setrecursionlimit(10**6)
+
 input = sys.stdin.readline
 
 V,E = map(int,input().split())
@@ -16,15 +17,20 @@ def find(x):
     root[x] = find(root[x])
   return root[x]
 
+def union(a,b):
+  a = find(a)
+  b = find(b)
+  if a<b:
+    root[b] = a
+  else:
+    root[a] = b
+
 ans = 0 
 for a,b,c in edge:
   aRoot = find(a)
   bRoot = find(b)
   if aRoot != bRoot:
-    if aRoot > bRoot:
-      root[aRoot] = bRoot
-    else:
-      root[bRoot] = aRoot
-    ans += c
+    union(aRoot,bRoot)
+    ans+=c
 
 print(ans) 
