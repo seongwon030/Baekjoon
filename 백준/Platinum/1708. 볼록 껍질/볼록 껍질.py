@@ -1,38 +1,33 @@
 import sys
 input = sys.stdin.readline
 
-def ccw(left, mid, right):
-  lx, ly = left
-  rx, ry = right
-  mx, my  = mid
+def ccw(p1, p2, p3):
+    return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0])
 
-  cross = (mx-lx) * (ry-ly) - (rx-lx) * (my-ly)
+def convex(points):
+  points = sorted(points)
 
-  return cross > 0
-
-def convex_hull(positions):
-  convex = []
-  for p3 in positions:
-    while len(convex) >= 2:
-      p1, p2 = convex[-2], convex[-1]
-      if ccw(p1,p2,p3): 
-        # p1->p2->p3가 반시계면 멈춤
-        break
-      convex.pop() # 시계방향 또는 일직선이면 볼록 껍질에 포함 안 됨
-    convex.append(p3)
+  lower = []
+  for p in points:
+    while len(lower) >= 2 and ccw(lower[-2], lower[-1], p) <= 0: # 일직선상도 가능
+      lower.pop()
+    lower.append(p)
   
-  return len(convex)
+  upper = []
+  for p in reversed(points):
+    while len(upper) >= 2 and ccw(upper[-2], upper[-1], p) <= 0:
+      upper.pop()
+    upper.append(p)
 
-ans = 0
+  return lower[:-1] + upper[:-1]
+
+
 n = int(input())
-positions = []
+
+points = []
 for i in range(n):
-  positions.append(list(map(int, input().split())))
+  points.append(list(map(int,input().split())))
 
-positions = sorted(positions, key=lambda pos:(pos[0], pos[1]))
-ans += convex_hull(positions)
+result = convex(points)
 
-positions.reverse()
-ans += convex_hull(positions)
-
-print(ans-2)
+print(len(result))
