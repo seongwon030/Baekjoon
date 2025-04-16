@@ -1,25 +1,24 @@
 def queens(level):
     global count
-    if level == N:
+    if level == n:
         count += 1
         return
-    else:
-        for i in range(N):
-            cols[level] = i
-            if promising(level):
-                queens(level + 1)
+    
+    for i in range(n):
+        cols[level] = i
+        if is_promising(level):
+            queens(level + 1)
 
-def promising(level):
+def is_promising(level):
     for i in range(level):
-        if (cols[i] == cols[level]) or abs(cols[i] - cols[level]) == abs(level - i):
+        if (cols[i] == cols[level] or abs(cols[i] - cols[level]) - abs(level - i) == 0):
             return False
     return True
 
 
-N = int(input())
+n = int(input())
+cols = [0] * n
 count = 0
-cols = [0] * N
-
 
 queens(0)
 print(count)
