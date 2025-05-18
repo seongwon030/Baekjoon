@@ -27,7 +27,6 @@ for i in range(T):
     M, N, K = map(int, input().split())
     graph = [[0] * M for _ in range(N)]
     visited = [[False] * M for _ in range(N)]
-    count = 0
 
     for _ in range(K):
         a,b = map(int, input().split())
