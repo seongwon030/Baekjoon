@@ -1,20 +1,19 @@
 import sys
-sys.setrecursionlimit(10**6)
 import math
+sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
 
-dx = [0, 0, -1, 1]
-dy = [-1, 1, 0, 0]
-
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
 
 def find_unions(A):
     visited = [[False] * N for _ in range(N)]
     unions = []
 
-    def dfs(x, y, union):
+    def dfs(x,y,union):
         visited[x][y] = True
-        union.append((x, y))
+        union.append((x,y))
 
         for i in range(4):
             nx = x + dx[i]
@@ -22,18 +21,17 @@ def find_unions(A):
 
             if 0 <= nx < N and 0 <= ny < N and not visited[nx][ny]:
                 if L <= abs(A[x][y] - A[nx][ny]) <= R:
-                    dfs(nx, ny, union)
+                    dfs(nx,ny,union)
 
     for i in range(N):
         for j in range(N):
             if not visited[i][j]:
                 union = []
-                dfs(i, j, union)
+                dfs(i,j,union)
                 if len(union) > 1:
                     unions.append(union)
 
     return unions
-
 
 N, L, R = map(int, input().split())
 A = [list(map(int, input().split())) for _ in range(N)]
@@ -45,12 +43,11 @@ while True:
     if not unions:
         break
 
-    # 각 연합에 대해 평균 계산 및 적용
     for union in unions:
-        total_population = sum(A[x][y] for x, y in union)
-        avg_population = total_population // len(union)
+        total = sum(A[x][y] for x,y in union)
+        avg_num = total // len(union)
         for x, y in union:
-            A[x][y] = avg_population
+            A[x][y] = avg_num
 
     count += 1
 
