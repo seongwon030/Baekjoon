@@ -24,6 +24,8 @@ for i in range(V):
     for j in range(V):
         if i==j:
             continue
+        if dist[i][j] == INF or dist[j][i] == INF:
+            continue
         ans = min(ans, dist[i][j] + dist[j][i])
 
 if ans == INF:
